@@ -1,144 +1,150 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Partners = () => {
   const [position, setPosition] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-  const carouselRef = useRef(null);
 
   const partners = [
     {
       id: 1,
       name: "Université de Tunis",
-      logo: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=400&h=200",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      category: "Éducation",
     },
     {
       id: 2,
-      name: "Ministère Education",
-      logo: "https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=400&h=200",
+      name: "Ministère de l'Éducation",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      category: "Gouvernement",
     },
     {
       id: 3,
-      name: "Centre Culturel",
-      logo: "https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&w=400&h=200",
+      name: "Centre Culturel International",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      category: "Culture",
     },
     {
       id: 4,
-      name: "Banque Africaine",
-      logo: "https://images.pexels.com/photos/164527/pexels-photo-164527.jpeg?auto=compress&cs=tinysrgb&w=400&h=200",
+      name: "Banque Africaine de Développement",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      category: "Finance",
     },
     {
       id: 5,
-      name: "ONG Développement",
-      logo: "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=400&h=200",
+      name: "ONG Développement Durable",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      category: "ONG",
     },
     {
       id: 6,
-      name: "Fondation Jeunesse",
-      logo: "https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=400&h=200",
+      name: "Fondation de la Jeunesse",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      category: "Social",
     },
     {
       id: 7,
-      name: "Association Sport",
-      logo: "https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=400&h=200",
+      name: "Association Sportive Nationale",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      category: "Sport",
     },
     {
       id: 8,
-      name: "Entreprise Tech",
-      logo: "https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=400&h=200",
+      name: "TechCorp Innovation",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      category: "Technologie",
     },
   ];
 
-  const allPartners = [...partners, ...partners];
-
-  const itemWidth = 320;
-  const totalWidth = itemWidth * partners.length;
+  const allPartners = [...partners, ...partners, ...partners];
+  const itemWidth = 200;
+  const gap = 15;
+  const totalWidth = (itemWidth + gap) * partners.length;
 
   useEffect(() => {
-    if (isPaused) return;
-
     const interval = setInterval(() => {
-      setPosition((prev) => {
-        if (prev <= -totalWidth) {
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 50);
+      setPosition((prev) => (prev <= -totalWidth ? 0 : prev - 0.5));
+    }, 30);
 
     return () => clearInterval(interval);
-  }, [isPaused, totalWidth]);
+  }, [totalWidth]);
 
   const handleNext = () => {
-    setPosition((prev) => {
-      const newPosition = prev - itemWidth;
-      return newPosition <= -totalWidth ? 0 : newPosition;
-    });
+    setPosition((prev) =>
+      prev - (itemWidth + gap) <= -totalWidth ? 0 : prev - (itemWidth + gap)
+    );
   };
 
   const handlePrev = () => {
-    setPosition((prev) => {
-      const newPosition = prev + itemWidth;
-      return newPosition > 0 ? -totalWidth + itemWidth : newPosition;
-    });
+    setPosition((prev) =>
+      prev + (itemWidth + gap) > 0
+        ? -totalWidth + (itemWidth + gap)
+        : prev + (itemWidth + gap)
+    );
   };
 
   return (
-    <div className="w-full py-16 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">
-          Nos Partenaires
-        </h2>
-
-        <div
-          className="relative overflow-hidden"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          role="region"
-          aria-label="Carousel de partenaires"
-        >
-          {/* Gradient vert à gauche */}
-          <div className="absolute left-0 top-0 w-20 h-full bg-gradient-to-r from-[#00DB6C] to-transparent z-10 pointer-events-none"></div>
-
-          {/* Gradient de transition à droite */}
-          <div className="absolute right-0 top-0 w-20 h-full bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none"></div>
-
-          <div
-            ref={carouselRef}
-            className="flex items-center gap-8 transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(${position}px)` }}
-          >
-            {allPartners.map((partner, index) => (
-              <div
-                key={`${partner.id}-${index}`}
-                className="flex-shrink-0 transition-all duration-300 hover:scale-105"
-                style={{ width: `${itemWidth}px` }}
-                role="group"
-                aria-label={`Partenaire ${partner.name}`}
-              >
-                <img
-                  src={partner.logo}
-                  alt={partner.name}
-                  className="w-full h-32 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                />
-              </div>
-            ))}
+    <div className="w-full py-20 bg-[#FEFEFE] mt-10 from-slate-50 via-white to-slate-100 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 relative">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-6">
+            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+            Nos Partenaires de Confiance
           </div>
+          <h2 className="text-5xl font-bold bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 bg-clip-text text-transparent mb-4">
+            Ensemble vers l'Excellence
+          </h2>
+          <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+            Découvrez les organisations prestigieuses qui nous accompagnent dans
+            notre mission d'innovation et de développement.
+          </p>
+        </div>
 
-          <button
-            onClick={handlePrev}
-            className="absolute left-6 top-1/2 transform -translate-y-1/2 bg-white shadow-lg p-3 rounded-full hover:bg-gray-50 transition-colors z-20"
-            aria-label="Précédent"
-          >
-            <ChevronLeft className="w-6 h-6 text-gray-700" />
-          </button>
-          <button
-            onClick={handleNext}
-            className="absolute right-6 top-1/2 transform -translate-y-1/2 bg-white shadow-lg p-3 rounded-full hover:bg-gray-50 transition-colors z-20"
-            aria-label="Suivant"
-          >
-            <ChevronRight className="w-6 h-6 text-gray-700" />
-          </button>
+        <div className="relative">
+          <div className="relative overflow-hidden rounded-2xl">
+            <div
+              className="flex items-center py-12 px-12 transition-transform duration-700 ease-out"
+              style={{
+                transform: `translateX(${position}px)`,
+                gap: `${gap}px`,
+              }}
+            >
+              {allPartners.map((partner, index) => (
+                <div
+                  key={`${partner.id}-${Math.floor(index / partners.length)}`}
+                  className="flex-shrink-0 group cursor-pointer"
+                  style={{ width: `${itemWidth}px` }}
+                  role="group"
+                  aria-label={`Partenaire ${partner.name}`}
+                >
+                  <div className="bg-[#00A63E] rounded-xl shadow-md hover:shadow-2xl transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-2 border border-slate-200/50 overflow-hidden">
+                    <div className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 p-1">
+                      <img
+                        src={partner.logo}
+                        alt={partner.name}
+                        className="w-full h-full object-contain rounded-xl"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <button
+              onClick={handlePrev}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm shadow-lg p-3 rounded-full transition-all duration-300 z-30 hover:bg-white hover:scale-110"
+              aria-label="Précédent"
+            >
+              <ChevronLeft className="w-5 h-5 text-slate-700" />
+            </button>
+
+            <button
+              onClick={handleNext}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 backdrop-blur-sm shadow-lg p-3 rounded-full transition-all duration-300 z-30 hover:bg-white hover:scale-110"
+              aria-label="Suivant"
+            >
+              <ChevronRight className="w-5 h-5 text-slate-700" />
+            </button>
+          </div>
         </div>
       </div>
     </div>
