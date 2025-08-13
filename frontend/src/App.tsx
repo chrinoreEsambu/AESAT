@@ -1,17 +1,20 @@
-import { Calendar, MapPin, Clock, ArrowRight } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Clock,
+  ArrowRight,
+  X,
+  Users,
+  Share2,
+  Heart,
+} from "lucide-react";
+import { useState } from "react";
 
-interface Event {
-  id: number;
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  description: string;
-  image: string;
-  status: string;
-}
 const Events = () => {
-  const upcomingEvents: Event[] = [
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [likedEvents, setLikedEvents] = useState([]);
+
+  const upcomingEvents = [
     {
       id: 1,
       title: "Journée d'Orientation Académique",
@@ -19,10 +22,14 @@ const Events = () => {
       time: "14:00 - 17:00",
       location: "Campus Universitaire, Tunis",
       description:
-        " Session d'information pour aider les nouveaux étudiants dans leur orientation.What is Lorem IpsumLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "Session d'information complète pour aider les nouveaux étudiants dans leur orientation académique. Cette journée comprend des présentations sur les différentes filières disponibles, des rencontres avec les professeurs et des témoignages d'anciens étudiants. Un moment privilégié pour poser toutes vos questions et faire le bon choix pour votre avenir.",
       image:
         "https://images.pexels.com/photos/1181533/pexels-photo-1181533.jpeg?auto=compress&cs=tinysrgb&w=800",
       status: "upcoming",
+      category: "Académique",
+      attendees: 150,
+      organizer: "Association des Étudiants Africains",
+      tags: ["orientation", "études", "conseil"],
     },
     {
       id: 2,
@@ -31,14 +38,18 @@ const Events = () => {
       time: "19:00 - 23:00",
       location: "Centre Culturel, Tunis",
       description:
-        "Célébration de la diversité culturelle africaine avec musique, danse et gastronomie.",
+        "Une célébration exceptionnelle de la diversité culturelle africaine. Au programme : spectacles de danse traditionnelle, concerts de musique africaine contemporaine, exposition d'art et dégustation de spécialités culinaires de différents pays d'Afrique. Une soirée inoubliable pour découvrir et célébrer nos racines communes.",
       image:
         "https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=800",
       status: "upcoming",
+      category: "Culturel",
+      attendees: 200,
+      organizer: "Club Culturel Africain",
+      tags: ["culture", "musique", "gastronomie", "art"],
     },
   ];
 
-  const pastEvents: Event[] = [
+  const pastEvents = [
     {
       id: 3,
       title: "Conférence sur l'Entrepreneuriat",
@@ -46,10 +57,14 @@ const Events = () => {
       time: "10:00 - 16:00",
       location: "Hôtel Laico, Tunis",
       description:
-        "Rencontre avec des entrepreneurs africains établis en Tunisie.",
+        "Une journée enrichissante dédiée à l'entrepreneuriat avec la participation d'entrepreneurs africains établis en Tunisie. Panels de discussion, ateliers pratiques sur la création d'entreprise, sessions de networking et présentations de projets innovants. Plus de 300 participants ont bénéficié de conseils précieux pour développer leurs projets.",
       image:
         "https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=800",
       status: "past",
+      category: "Business",
+      attendees: 300,
+      organizer: "Réseau Entrepreneurs Africains",
+      tags: ["entrepreneuriat", "business", "networking"],
     },
     {
       id: 4,
@@ -58,108 +73,317 @@ const Events = () => {
       time: "09:00 - 18:00",
       location: "Stade Municipal, Ariana",
       description:
-        "Compétition sportive rassemblant plusieurs associations étudiantes.",
+        "Tournoi sportif mémorable qui a rassemblé 12 associations étudiantes dans un esprit de fair-play et de fraternité. Matchs passionnants, ambiance festive et remise de prix en fin de journée. L'équipe 'Lions d'Afrique' a remporté le trophée après des matchs disputés. Un moment fort de cohésion communautaire.",
       image:
         "https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=800",
       status: "past",
+      category: "Sport",
+      attendees: 250,
+      organizer: "Fédération Sportive Étudiante",
+      tags: ["football", "sport", "compétition", "équipe"],
     },
   ];
 
-  const EventCard = ({
-    event,
-    isUpcoming = false,
-  }: {
-    event: Event;
-    isUpcoming: boolean;
-  }) => (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 group">
-      <div className="relative h-48">
-        <img
-          src={event.image}
-          alt={event.title}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-        />
-        <div className="absolute top-4 left-4">
-          <span
-            className={`px-3 py-1 rounded-full text-sm font-medium ${
-              isUpcoming
-                ? "bg-green-100 text-green-800"
-                : "bg-gray-100 text-gray-800"
-            }`}
+  const handleLike = (eventId) => {
+    if (likedEvents.includes(eventId)) {
+      setLikedEvents(likedEvents.filter((id) => id !== eventId));
+    } else {
+      setLikedEvents([...likedEvents, eventId]);
+    }
+  };
+
+  const getCategoryStyle = (category) => {
+    if (category === "Académique") return "bg-blue-100 text-blue-800";
+    if (category === "Culturel") return "bg-purple-100 text-purple-800";
+    if (category === "Business") return "bg-orange-100 text-orange-800";
+    if (category === "Sport") return "bg-green-100 text-green-800";
+    return "bg-gray-100 text-gray-800";
+  };
+
+  const openModal = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const closeModal = () => {
+    setSelectedEvent(null);
+  };
+
+  const renderEventCard = (event, isUpcoming) => {
+    const isLiked = likedEvents.includes(event.id);
+
+    return (
+      <div
+        key={event.id}
+        className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 group"
+      >
+        <div className="relative h-48">
+          <img
+            src={event.image}
+            alt={event.title}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute top-4 left-4 flex gap-2">
+            <span
+              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                isUpcoming
+                  ? "bg-green-100 text-green-800"
+                  : "bg-gray-100 text-gray-800"
+              }`}
+            >
+              {isUpcoming ? "À Venir" : "Terminé"}
+            </span>
+            {event.category && (
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryStyle(
+                  event.category
+                )}`}
+              >
+                {event.category}
+              </span>
+            )}
+          </div>
+          <button
+            onClick={() => handleLike(event.id)}
+            className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors"
           >
-            {isUpcoming ? "À Venir" : "Passé"}
-          </span>
-        </div>
-      </div>
-
-      <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-3">{event.title}</h3>
-        <p className="text-gray-600 mb-4  line-clamp-3">{event.description}</p>
-
-        <div className="space-y-2 text-sm text-gray-500">
-          <div className="flex items-center space-x-2">
-            <Calendar className="w-4 h-4" />
-            <span>{event.date}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Clock className="w-4 h-4" />
-            <span>{event.time}</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <MapPin className="w-4 h-4" />
-            <span>{event.location}</span>
-          </div>
-        </div>
-
-        {isUpcoming && (
-          <button className="mt-4 inline-flex items-center space-x-2 text-green-600 hover:text-blue-700 font-medium">
-            <span>En savoir plus</span>
-            <ArrowRight className="w-4 h-4" />
+            <Heart
+              className={`w-4 h-4 ${
+                isLiked ? "fill-red-500 text-red-500" : "text-gray-600"
+              }`}
+            />
           </button>
-        )}
+        </div>
+
+        <div className="p-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+            {event.title}
+          </h3>
+          <p className="text-gray-600 mb-4 line-clamp-2">{event.description}</p>
+
+          <div className="space-y-2 text-sm text-gray-500 mb-4">
+            <div className="flex items-center space-x-2">
+              <Calendar className="w-4 h-4 text-blue-500" />
+              <span>{event.date}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Clock className="w-4 h-4 text-green-500" />
+              <span>{event.time}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <MapPin className="w-4 h-4 text-red-500" />
+              <span className="line-clamp-1">{event.location}</span>
+            </div>
+            {event.attendees && (
+              <div className="flex items-center space-x-2">
+                <Users className="w-4 h-4 text-purple-500" />
+                <span>{event.attendees} participants</span>
+              </div>
+            )}
+          </div>
+
+          <div className="flex justify-between items-center">
+            <button
+              onClick={() => openModal(event)}
+              className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+            >
+              <span>Voir les détails</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+            <button className="p-2 text-gray-400 hover:text-blue-600 transition-colors">
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
+
+  const renderModal = () => {
+    if (!selectedEvent) return null;
+
+    const isLiked = likedEvents.includes(selectedEvent.id);
+
+    return (
+      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+        <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="relative h-64">
+            <img
+              src={selectedEvent.image}
+              alt={selectedEvent.title}
+              className="w-full h-full object-cover"
+            />
+            <button
+              onClick={closeModal}
+              className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <div className="absolute bottom-4 left-4 flex gap-2">
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-medium ${
+                  selectedEvent.status === "upcoming"
+                    ? "bg-green-100 text-green-800"
+                    : "bg-gray-100 text-gray-800"
+                }`}
+              >
+                {selectedEvent.status === "upcoming" ? "À Venir" : "Terminé"}
+              </span>
+              {selectedEvent.category && (
+                <span
+                  className={`px-3 py-1 rounded-full text-sm font-medium ${getCategoryStyle(
+                    selectedEvent.category
+                  )}`}
+                >
+                  {selectedEvent.category}
+                </span>
+              )}
+            </div>
+          </div>
+
+          <div className="p-6">
+            <div className="flex justify-between items-start mb-4">
+              <h2 className="text-2xl font-bold text-gray-900">
+                {selectedEvent.title}
+              </h2>
+              <button
+                onClick={() => handleLike(selectedEvent.id)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <Heart
+                  className={`w-5 h-5 ${
+                    isLiked ? "fill-red-500 text-red-500" : "text-gray-600"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <Calendar className="w-5 h-5 text-blue-500" />
+                  <span className="text-gray-700">{selectedEvent.date}</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <Clock className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">{selectedEvent.time}</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <MapPin className="w-5 h-5 text-red-500" />
+                  <span className="text-gray-700">
+                    {selectedEvent.location}
+                  </span>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {selectedEvent.attendees && (
+                  <div className="flex items-center space-x-3">
+                    <Users className="w-5 h-5 text-purple-500" />
+                    <span className="text-gray-700">
+                      {selectedEvent.attendees} participants
+                    </span>
+                  </div>
+                )}
+                {selectedEvent.organizer && (
+                  <div className="text-sm">
+                    <span className="font-medium text-gray-900">
+                      Organisateur:
+                    </span>
+                    <span className="text-gray-700 ml-1">
+                      {selectedEvent.organizer}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Description
+              </h3>
+              <p className="text-gray-700 leading-relaxed">
+                {selectedEvent.description}
+              </p>
+            </div>
+
+            {selectedEvent.tags && (
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  Tags
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedEvent.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                    >
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              {selectedEvent.status === "upcoming" && (
+                <button className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                  S'inscrire à l'événement
+                </button>
+              )}
+              <button className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+                <Share2 className="w-4 h-4" />
+                Partager
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <section id="events" className="py-20 bg-gray-50">
+    <section
+      id="events"
+      className="py-20 bg-gradient-to-br from-gray-50 to-blue-50"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/*  Header Section */}
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Nos Événements
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Découvrez nos activités qui renforcent les liens communautaires et
-            favorisent l'épanouissement
+            favorisent l'épanouissement de notre communauté
           </p>
         </div>
 
-        {/* Upcoming Events  */}
         <div className="mb-16">
           <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
             <Calendar className="w-6 h-6 text-green-600 mr-2" />
             Événements à Venir
+            <span className="ml-3 bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">
+              {upcomingEvents.length}
+            </span>
           </h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            {upcomingEvents.map((event) => (
-              <EventCard key={event.id} event={event} isUpcoming={true} />
-            ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {upcomingEvents.map((event) => renderEventCard(event, true))}
           </div>
         </div>
 
-        {/* Past Events */}
         <div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-8">
+          <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
+            <Clock className="w-6 h-6 text-gray-600 mr-2" />
             Événements Passés
+            <span className="ml-3 bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">
+              {pastEvents.length}
+            </span>
           </h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            {pastEvents.map((event) => (
-              <EventCard key={event.id} event={event} isUpcoming={false} />
-            ))}
+          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+            {pastEvents.map((event) => renderEventCard(event, false))}
           </div>
         </div>
       </div>
+
+      {renderModal()}
     </section>
   );
 };
