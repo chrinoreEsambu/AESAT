@@ -325,11 +325,11 @@ const Events = () => {
 
             <div className="flex gap-3">
               {selectedEvent.status === "upcoming" && (
-                <button className="flex-1 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                <button className="flex-1 bg-[#00DE70] text-[#fff] py-3 rounded-lg font-medium hover:bg-[#00BC4A] transition-colors">
                   S'inscrire à l'événement
                 </button>
               )}
-              <button className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-2">
+              <button className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-[#FEFAEA] transition-colors flex items-center justify-center gap-2">
                 <Share2 className="w-4 h-4" />
                 Partager
               </button>
