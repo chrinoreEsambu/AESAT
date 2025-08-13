@@ -184,12 +184,12 @@ const Events = () => {
           <div className="flex justify-between items-center">
             <button
               onClick={() => openModal(event)}
-              className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              className="inline-flex items-center space-x-2 text-[#00DB6C] hover:scale-[1.02] transition-all duration-300 group font-medium transition-colors"
             >
               <span>Voir les détails</span>
               <ArrowRight className="w-4 h-4" />
             </button>
-            <button className="p-2 text-gray-400 hover:text-blue-600 transition-colors">
+            <button className="p-2 text-gray-400 hover:text-[#00DB6C] transition-colors">
               <Share2 className="w-4 h-4" />
             </button>
           </div>
@@ -360,9 +360,6 @@ const Events = () => {
           <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
             <Calendar className="w-6 h-6 text-green-600 mr-2" />
             Événements à Venir
-            <span className="ml-3 bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full">
-              {upcomingEvents.length}
-            </span>
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {upcomingEvents.map((event) => renderEventCard(event, true))}
@@ -373,9 +370,6 @@ const Events = () => {
           <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center">
             <Clock className="w-6 h-6 text-gray-600 mr-2" />
             Événements Passés
-            <span className="ml-3 bg-gray-100 text-gray-800 text-sm px-3 py-1 rounded-full">
-              {pastEvents.length}
-            </span>
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
             {pastEvents.map((event) => renderEventCard(event, false))}
