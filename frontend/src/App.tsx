@@ -11,28 +11,11 @@ import {
 import { useState } from "react";
 import Partners from "./partners/Carrousel";
 import StudentCarousel from "./partners/Student";
-
-// Interface pour définir le type Event
-interface Event {
-  id: number;
-  title: string;
-  date: string;
-  time: string;
-  location: string;
-  description: string;
-  image: string;
-  status: string;
-  category: string;
-  attendees: number;
-  organizer: string;
-  tags: string[];
-}
-
 const Events = () => {
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [likedEvents, setLikedEvents] = useState<number[]>([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [likedEvents, setLikedEvents] = useState([]);
 
-  const upcomingEvents: Event[] = [
+  const upcomingEvents = [
     {
       id: 1,
       title: "Journée d'Orientation Académique",
@@ -67,7 +50,7 @@ const Events = () => {
     },
   ];
 
-  const pastEvents: Event[] = [
+  const pastEvents = [
     {
       id: 3,
       title: "Conférence sur l'Entrepreneuriat",
@@ -109,8 +92,7 @@ const Events = () => {
       setLikedEvents([...likedEvents, eventId]);
     }
   };
-
-  const getCategoryStyle = (category: string) => {
+  const getCategoryStyle = (category) => {
     if (category === "Académique") return "bg-blue-100 text-blue-800";
     if (category === "Culturel") return "bg-purple-100 text-purple-800";
     if (category === "Business") return "bg-orange-100 text-orange-800";
@@ -414,7 +396,7 @@ const Events = () => {
                   Tags
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {selectedEvent.tags.map((tag: string, index: number) => (
+                  {selectedEvent.tags.map((tag, index) => (
                     <span
                       key={index}
                       className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
