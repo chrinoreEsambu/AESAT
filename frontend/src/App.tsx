@@ -9,12 +9,29 @@ import {
   Heart,
 } from "lucide-react";
 import { useState } from "react";
-import Partners from "./partners/Carrousel"
-const Events = () => {
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [likedEvents, setLikedEvents] = useState([]);
+import Partners from "./partners/Carrousel";
 
-  const upcomingEvents = [
+// Interface pour définir le type Event
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+  image: string;
+  status: string;
+  category: string;
+  attendees: number;
+  organizer: string;
+  tags: string[];
+}
+
+const Events = () => {
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [likedEvents, setLikedEvents] = useState<number[]>([]);
+
+  const upcomingEvents: Event[] = [
     {
       id: 1,
       title: "Journée d'Orientation Académique",
@@ -49,7 +66,7 @@ const Events = () => {
     },
   ];
 
-  const pastEvents = [
+  const pastEvents: Event[] = [
     {
       id: 3,
       title: "Conférence sur l'Entrepreneuriat",
@@ -84,7 +101,7 @@ const Events = () => {
     },
   ];
 
-  const handleLike = (eventId) => {
+  const handleLike = (eventId: number) => {
     if (likedEvents.includes(eventId)) {
       setLikedEvents(likedEvents.filter((id) => id !== eventId));
     } else {
@@ -92,7 +109,7 @@ const Events = () => {
     }
   };
 
-  const getCategoryStyle = (category) => {
+  const getCategoryStyle = (category: string) => {
     if (category === "Académique") return "bg-blue-100 text-blue-800";
     if (category === "Culturel") return "bg-purple-100 text-purple-800";
     if (category === "Business") return "bg-orange-100 text-orange-800";
@@ -105,7 +122,7 @@ const Events = () => {
       id="events"
       className="py-20 bg-gradient-to-br from-gray-50 to-blue-50"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  mb-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Nos Événements
@@ -294,8 +311,8 @@ const Events = () => {
       </div>
 
       {selectedEvent && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 ">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto ">
             <div className="relative h-64">
               <img
                 src={selectedEvent.image}
@@ -396,7 +413,7 @@ const Events = () => {
                   Tags
                 </h3>
                 <div className="flex flex-wrap gap-2">
-                  {selectedEvent.tags.map((tag, index) => (
+                  {selectedEvent.tags.map((tag: string, index: number) => (
                     <span
                       key={index}
                       className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
