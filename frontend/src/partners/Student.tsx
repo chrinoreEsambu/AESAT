@@ -101,7 +101,6 @@ const StudentCarousel: React.FC = () => {
       </div>
 
       <div className="flex items-center gap-6 h-full  ">
-        {/* Image à gauche */}
         <div className="flex-shrink-0 ">
           <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#117A43] shadow-lg ">
             <img
@@ -112,12 +111,11 @@ const StudentCarousel: React.FC = () => {
           </div>
         </div>
 
-        {/* Informations à droite */}
         <div className="flex-1 flex flex-col justify-center">
           <h3 className="text-xl font-bold text-gray-800 mb-2">
             {student.name}
           </h3>
-          <p className="text-blue-600 font-semibold mb-3 text-sm">
+          <p className="text-[#00A63E] font-semibold mb-3 text-sm">
             {student.university}
           </p>
           <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
@@ -161,7 +159,6 @@ const StudentCarousel: React.FC = () => {
             width: "fit-content",
           }}
         >
-        
           {[...students, ...students, ...students].map((student, index) => (
             <StudentCard key={`${student.id}-${index}`} student={student} />
           ))}
