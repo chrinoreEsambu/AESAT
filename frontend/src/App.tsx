@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import Partners from "./partners/Carrousel";
 import StudentCarousel from "./partners/Student";
+
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [likedEvents, setLikedEvents] = useState([]);
@@ -92,6 +93,32 @@ const Events = () => {
       setLikedEvents([...likedEvents, eventId]);
     }
   };
+
+  const handleShare = async (event) => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: event.title,
+          text: `${event.title} - ${event.description.substring(0, 100)}...`,
+          url: window.location.href,
+        });
+      } else {
+        await navigator.clipboard.writeText(window.location.href);
+        alert("Lien de l'événement copié dans le presse-papiers !");
+      }
+    } catch (err) {
+      console.error("Erreur de partage :", err);
+      // Fallback pour les navigateurs sans support de l'API Clipboard
+      const textArea = document.createElement("textarea");
+      textArea.value = window.location.href;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      alert("Lien de l'événement copié dans le presse-papiers !");
+    }
+  };
+
   const getCategoryStyle = (category) => {
     if (category === "Académique") return "bg-blue-100 text-blue-800";
     if (category === "Culturel") return "bg-purple-100 text-purple-800";
@@ -194,7 +221,10 @@ const Events = () => {
                       <span>Voir les détails</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <button className="p-2 text-gray-400 hover:text-[#00DB6C] transition-colors">
+                    <button
+                      onClick={() => handleShare(event)}
+                      className="p-2 text-gray-400 hover:text-[#00DB6C] transition-colors"
+                    >
                       <Share2 className="w-4 h-4" />
                     </button>
                   </div>
@@ -282,7 +312,10 @@ const Events = () => {
                       <span>Voir les détails</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
-                    <button className="p-2 text-gray-400 hover:text-[#00DB6C] transition-colors">
+                    <button
+                      onClick={() => handleShare(event)}
+                      className="p-2 text-gray-400 hover:text-[#00DB6C] transition-colors"
+                    >
                       <Share2 className="w-4 h-4" />
                     </button>
                   </div>
@@ -413,8 +446,12 @@ const Events = () => {
                     S'inscrire à l'événement
                   </button>
                 )}
-                <button className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-[#FEFAEA] transition-colors flex items-center justify-center gap-2">
+                <button
+                  onClick={() => handleShare(selectedEvent)}
+                  className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-[#FEFAEA] transition-colors flex items-center justify-center gap-2"
+                >
                   <Share2 className="w-4 h-4" />
+                  <span>Partager</span>
                 </button>
               </div>
             </div>
