@@ -110,7 +110,7 @@ const Events = () => {
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Nos Événements
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-xl mx-auto">
             Découvrez nos activités qui renforcent les liens communautaires et
             favorisent l'épanouissement de notre communauté
           </p>
