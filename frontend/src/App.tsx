@@ -9,7 +9,8 @@ import {
   Heart,
 } from "lucide-react";
 import { useState } from "react";
-import Partners from "./partners/Carrousel"
+import Partners from "./partners/Carrousel";
+import StudentCarousel from "./partners/Student";
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [likedEvents, setLikedEvents] = useState([]);
@@ -91,8 +92,6 @@ const Events = () => {
       setLikedEvents([...likedEvents, eventId]);
     }
   };
-;
-
   const getCategoryStyle = (category) => {
     if (category === "Académique") return "bg-blue-100 text-blue-800";
     if (category === "Culturel") return "bg-purple-100 text-purple-800";
@@ -423,6 +422,7 @@ const Events = () => {
         </div>
       )}
       <Partners />
+      <StudentCarousel />
     </section>
   );
 };
