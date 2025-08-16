@@ -96,6 +96,12 @@ const StudentCarousel: React.FC = () => {
   const StudentCard: React.FC<{ student: Student }> = ({ student }) => (
     <div className="bg-red rounded-2xl  p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group min-w-[400px] h-[200px]">
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
+      <div
+        className="absolute top-0 left-0 right-0 h-1"
+        style={{
+          background: "linear-gradient(to right, #00DA6A, #00CB54, #00AB40)",
+        }}
+      ></div>
       <div className="absolute top-1 right-3 text-[#00D969] text-gray-800 px-3 py-1 rounded-full text-sm font-bold">
         ★ {student.month}
       </div>
@@ -169,8 +175,8 @@ const StudentCarousel: React.FC = () => {
 
   const row1Students = students.slice(0, 3);
   const row2Students = students.slice(3, 6);
-    const row3Students = students.slice(6, 9);
-    
+  const row3Students = students.slice(6, 9);
+
   // px-14 pour les border gauche left retir le truc o
   return (
     <div className="min-h-screen bg-gradient-to-br py-12 ">
