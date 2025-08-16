@@ -8,6 +8,8 @@ interface Student {
   description: string;
   imageUrl: string;
   month: string;
+  linkedinUrl: string;
+  email: string;
 }
 
 const StudentCarousel: React.FC = () => {
@@ -20,6 +22,8 @@ const StudentCarousel: React.FC = () => {
         "Étudiant brillant en informatique, passionné par l'IA et le développement web.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Mars",
+      linkedinUrl: "https://linkedin.com/in/alexandre-martin",
+      email: "alexandre.martin@sorbonne.fr",
     },
     {
       id: 2,
@@ -29,6 +33,8 @@ const StudentCarousel: React.FC = () => {
         "Ingénieure spécialisée en énergies renouvelables et développement durable.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Février",
+      linkedinUrl: "https://linkedin.com/in/sophie-dubois",
+      email: "sophie.dubois@polytechnique.edu",
     },
     {
       id: 3,
@@ -38,6 +44,8 @@ const StudentCarousel: React.FC = () => {
         "Étudiant en management international avec une approche entrepreneuriale innovante.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Janvier",
+      linkedinUrl: "https://linkedin.com/in/thomas-leroy",
+      email: "thomas.leroy@hec.edu",
     },
     {
       id: 4,
@@ -47,6 +55,8 @@ const StudentCarousel: React.FC = () => {
         "Passionnée de relations internationales et organisatrice du Model UN.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Décembre",
+      linkedinUrl: "https://linkedin.com/in/emma-moreau",
+      email: "emma.moreau@sciencespo-lyon.fr",
     },
     {
       id: 5,
@@ -55,6 +65,8 @@ const StudentCarousel: React.FC = () => {
       description: "Futur médecin engagé dans la recherche contre le cancer.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Novembre",
+      linkedinUrl: "https://linkedin.com/in/lucas-bernard",
+      email: "lucas.bernard@medecine-paris.fr",
     },
     {
       id: 6,
@@ -64,6 +76,8 @@ const StudentCarousel: React.FC = () => {
         "Architecte spécialisée dans l'éco-construction et le design durable.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Octobre",
+      linkedinUrl: "https://linkedin.com/in/camille-rousseau",
+      email: "camille.rousseau@ens.fr",
     },
     {
       id: 7,
@@ -73,6 +87,8 @@ const StudentCarousel: React.FC = () => {
         "Expert en marketing digital et transformation des entreprises.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Septembre",
+      linkedinUrl: "https://linkedin.com/in/antoine-petit",
+      email: "antoine.petit@essec.edu",
     },
     {
       id: 8,
@@ -81,6 +97,8 @@ const StudentCarousel: React.FC = () => {
       description: "Brillante juriste spécialisée en droit international.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Août",
+      linkedinUrl: "https://linkedin.com/in/marine-durand",
+      email: "marine.durand@assas.fr",
     },
     {
       id: 9,
@@ -90,11 +108,13 @@ const StudentCarousel: React.FC = () => {
         "Ingénieur aéronautique passionné par l'exploration spatiale.",
       imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Juillet",
+      linkedinUrl: "https://linkedin.com/in/maxime-garcia",
+      email: "maxime.garcia@insa-toulouse.fr",
     },
   ];
 
   const StudentCard: React.FC<{ student: Student }> = ({ student }) => (
-    <div className=" rounded-2xl  mb-5 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group min-w-[400px] h-[200px]">
+    <div className="rounded-2xl mb-5 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group min-w-[400px] h-[200px]">
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
       <div
         className="absolute top-0 left-0 right-0 h-1"
@@ -106,9 +126,9 @@ const StudentCarousel: React.FC = () => {
         ★ {student.month}
       </div>
 
-      <div className="flex items-center gap-6 h-full ">
-        <div className="flex-shrink-0 ">
-          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#117A43] shadow-lg ">
+      <div className="flex items-center gap-6 h-full">
+        <div className="flex-shrink-0">
+          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#117A43] shadow-lg">
             <img
               src={student.imageUrl}
               alt={student.name}
@@ -127,16 +147,20 @@ const StudentCarousel: React.FC = () => {
           <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
             {student.description}
           </p>
-          <div className="flex gap-3 i tems-center justify-center">
+          <div className="flex gap-3 items-center mt-2 justify-center" >
             <a
-              href="https://sousse.aesat.net/"
-              className="text-gray-500 hover:text-blue-600 transition-colors "
+              href={student.linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-500 hover:text-blue-600 transition-colors cursor-pointer"
+              onClick={(e) => e.stopPropagation()}
             >
               <Linkedin size={18} />
             </a>
             <a
-              href="#"
-              className="text-gray-500 hover:text-blue-600 transition-colors"
+              href={`mailto:${student.email}`}
+              className="text-gray-500 hover:text-red-500 transition-colors cursor-pointer"
+              onClick={(e) => e.stopPropagation()}
             >
               <Mail size={18} />
             </a>
@@ -144,7 +168,7 @@ const StudentCarousel: React.FC = () => {
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
     </div>
   );
 
@@ -177,9 +201,8 @@ const StudentCarousel: React.FC = () => {
   const row2Students = students.slice(3, 6);
   const row3Students = students.slice(6, 9);
 
-  // px-14 pour les border gauche left retir le truc o
   return (
-    <div className="min-h-screen bg-gradient-to-br py-12 ">
+    <div className="min-h-screen bg-gradient-to-br py-12">
       <style>{`
         @keyframes scroll-left {
           0% { transform: translateX(0%); }
@@ -213,7 +236,7 @@ const StudentCarousel: React.FC = () => {
       `}</style>
 
       <div className="text-center mb-20">
-        <div className="inline-flex items-center  gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-6">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-6">
           <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
           Étudiant du Mois
         </div>
@@ -223,8 +246,8 @@ const StudentCarousel: React.FC = () => {
         <p className="text-xl text-slate-600 max-w-2xl mb-10 mx-auto leading-relaxed">
           Chaque mois, nous mettons à l'honneur un étudiant exceptionnel dont le
           talent, la persévérance et les accomplissements inspirent toute notre
-          communauté. Découvrez ces parcours remarquables qui incarnent l’esprit
-          d’excellence et d’innovation.
+          communauté. Découvrez ces parcours remarquables qui incarnent l'esprit
+          d'excellence et d'innovation.
         </p>
 
         <CarouselRow students={row1Students} direction="left" speed={60} />
