@@ -94,7 +94,7 @@ const StudentCarousel: React.FC = () => {
   ];
 
   const StudentCard: React.FC<{ student: Student }> = ({ student }) => (
-    <div className="bg-red rounded-2xl  p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group min-w-[400px] h-[200px]">
+    <div className=" rounded-2xl  mb-5 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group min-w-[400px] h-[200px]">
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
       <div
         className="absolute top-0 left-0 right-0 h-1"
@@ -106,7 +106,7 @@ const StudentCarousel: React.FC = () => {
         ★ {student.month}
       </div>
 
-      <div className="flex items-center gap-6 h-full  ">
+      <div className="flex items-center gap-6 h-full ">
         <div className="flex-shrink-0 ">
           <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#117A43] shadow-lg ">
             <img
