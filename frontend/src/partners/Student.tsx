@@ -20,7 +20,7 @@ const StudentCarousel: React.FC = () => {
       university: "Université de la Sorbonne",
       description:
         "Étudiant brillant en informatique, passionné par l'IA et le développement web.",
-      imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      imageUrl: "https://avatars.githubusercontent.com/u/195829364?v=4",
       month: "Mars",
       linkedinUrl: "https://linkedin.com/in/alexandre-martin",
       email: "alexandre.martin@sorbonne.fr",
