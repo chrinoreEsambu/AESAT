@@ -122,7 +122,7 @@ const StudentCarousel: React.FC = () => {
           background: "linear-gradient(to right, #00DA6A, #00CB54, #00AB40)",
         }}
       ></div>
-      <div className="absolute top-1 right-3 text-[#00D969] text-gray-800 px-3 py-1 rounded-full text-sm font-bold">
+      <div className="absolute top-1 right-3 text-[#00D969]  px-3 py-1 rounded-full text-sm font-bold">
         ★ {student.month}
       </div>
 
