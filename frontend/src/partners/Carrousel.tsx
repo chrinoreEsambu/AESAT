@@ -8,7 +8,7 @@ const Partners = () => {
     {
       id: 1,
       name: "Université de Tunis",
-      logo: "https://avatars.githubusercontent.com/u/195829364?v=4",
+      logo: "https://startup.gov.tn/sites/default/files/2021-12/Kufanya.png",
       category: "Éducation",
     },
     {
