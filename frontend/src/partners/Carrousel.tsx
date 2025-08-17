@@ -14,7 +14,7 @@ const Partners = () => {
     {
       id: 2,
       name: "Ministère de l'Éducation",
-      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      logo: "https://www.nuitdelinfo.com/inscription/uploads/ecoles/622/logos/logo.png",
       category: "Gouvernement",
     },
     {
