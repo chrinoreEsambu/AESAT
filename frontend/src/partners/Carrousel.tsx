@@ -8,13 +8,13 @@ const Partners = () => {
     {
       id: 1,
       name: "Université de Tunis",
-      logo: "https://startup.gov.tn/sites/default/files/2021-12/Kufanya.png",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       category: "Éducation",
     },
     {
       id: 2,
       name: "Ministère de l'Éducation",
-      logo: "https://www.nuitdelinfo.com/inscription/uploads/ecoles/622/logos/logo.png",
+      logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       category: "Gouvernement",
     },
     {
