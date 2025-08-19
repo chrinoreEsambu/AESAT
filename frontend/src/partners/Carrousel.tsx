@@ -17,12 +17,14 @@ const Partners = () => {
       logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       category: "Gouvernement",
     },
+
     {
       id: 3,
       name: "Centre Culturel International",
       logo: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       category: "Culture",
     },
+    
     {
       id: 4,
       name: "Banque Africaine de Développement",
