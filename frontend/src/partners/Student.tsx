@@ -12,6 +12,7 @@ interface Student {
   email: string;
 }
 
+
 const StudentCarousel: React.FC = () => {
   const students: Student[] = [
     {

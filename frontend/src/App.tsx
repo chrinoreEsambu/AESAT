@@ -15,7 +15,7 @@ import StudentCarousel from "./partners/Student";
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [likedEvents, setLikedEvents] = useState([]);
-
+  
   const upcomingEvents = [
     {
       id: 1,
