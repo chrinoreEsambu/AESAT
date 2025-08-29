@@ -25,8 +25,7 @@ const StudentCarousel: React.FC = () => {
       university: "Université de la Sorbonne",
       description:
         "Étudiant brillant en informatique, passionné par l'IA et le développement web.",
-      imageUrl:
-        "https://media.licdn.com/dms/image/v2/D4D03AQHHMgIup346qg/profile-displayphoto-shrink_400_400/B4DZYPkbFtG4Ag-/0/1744018013356?e=1759363200&v=beta&t=2mD30JjNvmOC3GK9Hy2yoNib8DpWiuVDHdyejLdh3MY",
+      imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
       month: "Mars",
       linkedinUrl: "https://linkedin.com/in/alexandre-martin",
       email: "alexandre.martin@sorbonne.fr",
@@ -256,23 +255,23 @@ const StudentCarousel: React.FC = () => {
           to { opacity: 1; }
         }
 
-        @keyframes scaleIn {
+        @keyframes zoomIn {
           from { 
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
+            transform: scale(0.7);
           }
           to { 
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+            transform: scale(1);
           }
         }
 
         .modal-backdrop {
-          animation: fadeIn 0.3s ease-out;
+          animation: fadeIn 0.25s ease-out;
         }
 
         .modal-content {
-          animation: scaleIn 0.3s ease-out;
+          animation: zoomIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
       `}</style>
 
