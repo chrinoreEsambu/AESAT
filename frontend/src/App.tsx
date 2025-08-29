@@ -6,7 +6,6 @@ import {
   X,
   Users,
   Share2,
-  Heart,
 } from "lucide-react";
 import { useState } from "react";
 import Partners from "./partners/Carrousel";
@@ -14,8 +13,7 @@ import StudentCarousel from "./partners/Student";
 
 const Events = () => {
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [likedEvents, setLikedEvents] = useState([]);
-  
+
   const upcomingEvents = [
     {
       id: 1,
@@ -86,14 +84,6 @@ const Events = () => {
     },
   ];
 
-  const handleLike = (eventId: number) => {
-    if (likedEvents.includes(eventId)) {
-      setLikedEvents(likedEvents.filter((id) => id !== eventId));
-    } else {
-      setLikedEvents([...likedEvents, eventId]);
-    }
-  };
-
   const handleShare = async (event) => {
     try {
       if (navigator.share) {
@@ -108,7 +98,6 @@ const Events = () => {
       }
     } catch (err) {
       console.error("Erreur de partage :", err);
-      // Fallback pour les navigateurs sans support de l'API Clipboard
       const textArea = document.createElement("textarea");
       textArea.value = window.location.href;
       document.body.appendChild(textArea);
@@ -132,7 +121,7 @@ const Events = () => {
       id="events"
       className="py-20 bg-gradient-to-br from-gray-50 to-blue-50"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  mb-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Nos Événements
@@ -172,18 +161,6 @@ const Events = () => {
                       {event.category}
                     </span>
                   </div>
-                  <button
-                    onClick={() => handleLike(event.id)}
-                    className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors"
-                  >
-                    <Heart
-                      className={`w-4 h-4 ${
-                        likedEvents.includes(event.id)
-                          ? "fill-red-500 text-red-500"
-                          : "text-gray-600"
-                      }`}
-                    />
-                  </button>
                 </div>
 
                 <div className="p-6">
@@ -263,18 +240,6 @@ const Events = () => {
                       {event.category}
                     </span>
                   </div>
-                  <button
-                    onClick={() => handleLike(event.id)}
-                    className="absolute top-4 right-4 p-2 bg-white/80 backdrop-blur-sm rounded-full hover:bg-white transition-colors"
-                  >
-                    <Heart
-                      className={`w-4 h-4 ${
-                        likedEvents.includes(event.id)
-                          ? "fill-red-500 text-red-500"
-                          : "text-gray-600"
-                      }`}
-                    />
-                  </button>
                 </div>
 
                 <div className="p-6">
@@ -327,8 +292,8 @@ const Events = () => {
       </div>
 
       {selectedEvent && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 ">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto ">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="relative h-64">
               <img
                 src={selectedEvent.image}
@@ -366,18 +331,6 @@ const Events = () => {
                 <h2 className="text-2xl font-bold text-gray-900">
                   {selectedEvent.title}
                 </h2>
-                <button
-                  onClick={() => handleLike(selectedEvent.id)}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-                >
-                  <Heart
-                    className={`w-5 h-5 ${
-                      likedEvents.includes(selectedEvent.id)
-                        ? "fill-red-500 text-red-500"
-                        : "text-gray-600"
-                    }`}
-                  />
-                </button>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6 mb-6">

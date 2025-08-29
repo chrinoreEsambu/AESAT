@@ -299,7 +299,6 @@ const StudentCarousel: React.FC = () => {
         <CarouselRow students={row3Students} direction="left" speed={55} />
       </div>
 
-      {/* Modal pour l'image agrandie */}
       {selectedImage && (
         <div
           className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-backdrop"
@@ -309,7 +308,6 @@ const StudentCarousel: React.FC = () => {
             className="relative modal-content"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Bouton fermer */}
             <button
               onClick={closeModal}
               className="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-2xl hover:bg-gray-100 transition-colors duration-200 z-10"
@@ -317,7 +315,6 @@ const StudentCarousel: React.FC = () => {
               <X size={20} className="text-gray-700" />
             </button>
 
-            {/* Image seule */}
             <div className="w-96 h-96 rounded-2xl overflow-hidden border-4 border-[#117A43] shadow-2xl">
               <img
                 src={selectedImage.url}
