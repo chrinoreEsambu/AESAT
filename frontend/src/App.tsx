@@ -11,10 +11,27 @@ import { useState } from "react";
 import Partners from "./partners/Carrousel";
 import StudentCarousel from "./partners/Student";
 
-const Events = () => {
-  const [selectedEvent, setSelectedEvent] = useState(null);
+// Define the Event type to describe the shape of an event
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+  time: string;
+  location: string;
+  description: string;
+  image: string;
+  status: "upcoming" | "past";
+  category: string;
+  attendees: number;
+  organizer: string;
+  tags: string[];
+}
 
-  const upcomingEvents = [
+const Events = () => {
+  // Use the Event type for selectedEvent, allowing null or Event
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+
+  const upcomingEvents: Event[] = [
     {
       id: 1,
       title: "Journée d'Orientation Académique",
@@ -49,7 +66,7 @@ const Events = () => {
     },
   ];
 
-  const pastEvents = [
+  const pastEvents: Event[] = [
     {
       id: 3,
       title: "Conférence sur l'Entrepreneuriat",
@@ -73,7 +90,7 @@ const Events = () => {
       time: "09:00 - 18:00",
       location: "Stade Municipal, Ariana",
       description:
-        "Tournoi sportif mémorable qui a rassemblé 12 associations étudiantes dans un esprit de fair-play et de fraternité. Matchs passionnants, ambiance festive et remise de prix en fin de journée. L'équipe 'Lions d'Afrique' a remporté le trophée après des matchs disputés. Un moment fort de cohésion communautaire.",
+        "Tournoi sportifკ sportif mémorable qui a rassemblé 12 associations étudiantes dans un esprit de fair-play et de fraternité. Matchs passionnants, ambiance festive et remise de prix en fin de journée. L'équipe 'Lions d'Afrique' a remporté le trophée après des matchs disputés. Un moment fort de cohésion communautaire.",
       image:
         "https://images.pexels.com/photos/274506/pexels-photo-274506.jpeg?auto=compress&cs=tinysrgb&w=800",
       status: "past",
@@ -84,7 +101,8 @@ const Events = () => {
     },
   ];
 
-  const handleShare = async (event) => {
+  // Add type for the event parameter
+  const handleShare = async (event: Event) => {
     try {
       if (navigator.share) {
         await navigator.share({
@@ -108,7 +126,8 @@ const Events = () => {
     }
   };
 
-  const getCategoryStyle = (category) => {
+  // Add type for the category parameter
+  const getCategoryStyle = (category: string) => {
     if (category === "Académique") return "bg-blue-100 text-blue-800";
     if (category === "Culturel") return "bg-purple-100 text-purple-800";
     if (category === "Business") return "bg-orange-100 text-orange-800";
