@@ -315,7 +315,7 @@ const StudentCarousel: React.FC = () => {
               <X size={20} className="text-gray-700" />
             </button>
 
-            <div className="w-96 h-96 rounded-2xl overflow-hidden border-4 border-[#117A43] shadow-2xl">
+            <div className="w-90 h-85 rounded-2xl overflow-hidden border-4 border-[#117A43] shadow-2xl">
               <img
                 src={selectedImage.url}
                 alt={selectedImage.name}
