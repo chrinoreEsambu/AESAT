@@ -25,7 +25,8 @@ const StudentCarousel: React.FC = () => {
       university: "Université de la Sorbonne",
       description:
         "Étudiant brillant en informatique, passionné par l'IA et le développement web.",
-      imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      imageUrl:
+        "https://media.licdn.com/dms/image/v2/D4D03AQHHMgIup346qg/profile-displayphoto-shrink_400_400/B4DZYPkbFtG4Ag-/0/1744018013356?e=1759363200&v=beta&t=2mD30JjNvmOC3GK9Hy2yoNib8DpWiuVDHdyejLdh3MY",
       month: "Mars",
       linkedinUrl: "https://linkedin.com/in/alexandre-martin",
       email: "alexandre.martin@sorbonne.fr",
@@ -36,9 +37,11 @@ const StudentCarousel: React.FC = () => {
       university: "École Polytechnique",
       description:
         "Ingénieure spécialisée en énergies renouvelables et développement durable.",
-      imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      imageUrl:
+        "https://media.licdn.com/dms/image/v2/D4E03AQGazdnIR78sng/profile-displayphoto-shrink_400_400/B4EZgAxuuPHoAg-/0/1752359694489?e=1759363200&v=beta&t=QkP8j2AH-KgrM9E4yfsG6lOIrdnO2JBRD27mCkKhBBI",
       month: "Février",
-      linkedinUrl: "https://linkedin.com/in/sophie-dubois",
+      linkedinUrl:
+        "https://media.licdn.com/dms/image/v2/D4D03AQF23U7C9ArkvA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1727027561790?e=1759363200&v=beta&t=7sDhzd4HE2xYex4_xzTZRyN4C2YqPwGk9m_lAbwyBxQ",
       email: "sophie.dubois@polytechnique.edu",
     },
     {
@@ -47,7 +50,8 @@ const StudentCarousel: React.FC = () => {
       university: "HEC Paris",
       description:
         "Étudiant en management international avec une approche entrepreneuriale innovante.",
-      imageUrl: "https://sousse.aesat.net/assets/logo-aesat-CA6dZqDY.png",
+      imageUrl:
+        "https://media.licdn.com/dms/image/v2/D4D03AQF23U7C9ArkvA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1727027561790?e=1759363200&v=beta&t=7sDhzd4HE2xYex4_xzTZRyN4C2YqPwGk9m_lAbwyBxQ",
       month: "Janvier",
       linkedinUrl: "https://linkedin.com/in/thomas-leroy",
       email: "thomas.leroy@hec.edu",
