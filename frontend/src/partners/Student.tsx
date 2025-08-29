@@ -1,5 +1,5 @@
-import React from "react";
-import { Linkedin, Mail } from "lucide-react";
+import React, { useState } from "react";
+import { Linkedin, Mail, X } from "lucide-react";
 
 interface Student {
   id: number;
@@ -12,8 +12,12 @@ interface Student {
   email: string;
 }
 
-
 const StudentCarousel: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState<{
+    url: string;
+    name: string;
+  } | null>(null);
+
   const students: Student[] = [
     {
       id: 1,
@@ -114,6 +118,14 @@ const StudentCarousel: React.FC = () => {
     },
   ];
 
+  const handleImageClick = (imageUrl: string, name: string) => {
+    setSelectedImage({ url: imageUrl, name });
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
   const StudentCard: React.FC<{ student: Student }> = ({ student }) => (
     <div className="rounded-2xl mb-5 p-6 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group min-w-[400px] h-[200px]">
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-600"></div>
@@ -123,17 +135,20 @@ const StudentCarousel: React.FC = () => {
           background: "linear-gradient(to right, #00DA6A, #00CB54, #00AB40)",
         }}
       ></div>
-      <div className="absolute top-1 right-3 text-gray-800 px-3 py-1 rounded-full text-sm font-bold">
+      <div className="absolute top-1 right-3 text-gray-800 px-3 py-1 rounded-full text-sm font-bold text-[12px]">
         <span className="text-[#FBE321]">★</span> {student.month}
       </div>
 
       <div className="flex items-center gap-6 h-full">
         <div className="flex-shrink-0">
-          <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#117A43] shadow-lg">
+          <div
+            className="w-24 h-24 rounded-full overflow-hidden border-4 border-[#117A43] shadow-lg cursor-pointer transform hover:scale-105 transition-transform duration-300"
+            onClick={() => handleImageClick(student.imageUrl, student.name)}
+          >
             <img
               src={student.imageUrl}
               alt={student.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover hover:brightness-110 transition-all duration-300"
             />
           </div>
         </div>
@@ -234,6 +249,30 @@ const StudentCarousel: React.FC = () => {
           -webkit-box-orient: vertical;
           overflow: hidden;
         }
+
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes scaleIn {
+          from { 
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+          }
+          to { 
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+          }
+        }
+
+        .modal-backdrop {
+          animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+          animation: scaleIn 0.3s ease-out;
+        }
       `}</style>
 
       <div className="text-center mb-20">
@@ -252,11 +291,52 @@ const StudentCarousel: React.FC = () => {
         </p>
 
         <CarouselRow students={row1Students} direction="left" speed={60} />
-
         <CarouselRow students={row2Students} direction="right" speed={65} />
-
         <CarouselRow students={row3Students} direction="left" speed={55} />
       </div>
+
+      {/* Modal pour l'image agrandie */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-backdrop"
+          onClick={closeModal}
+        >
+          <div
+            className="relative modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Bouton fermer */}
+            <button
+              onClick={closeModal}
+              className="absolute -top-4 -right-4 bg-white rounded-full p-2 shadow-2xl hover:bg-gray-100 transition-colors duration-200 z-10"
+            >
+              <X size={20} className="text-gray-700" />
+            </button>
+
+            {/* Conteneur de l'image */}
+            <div className="bg-white rounded-2xl p-6 shadow-2xl max-w-md mx-auto">
+              <div className="w-80 h-80 mx-auto rounded-xl overflow-hidden border-4 border-[#117A43] shadow-lg mb-4">
+                <img
+                  src={selectedImage.url}
+                  alt={selectedImage.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Nom de l'étudiant */}
+              <div className="text-center">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                  {selectedImage.name}
+                </h3>
+                <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                  Étudiant du Mois
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
